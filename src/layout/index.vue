@@ -8,9 +8,9 @@
       </div>
       <app-main />
       <div class="main-footer">
-      <span class="footer-span"><a style="padding: 0 5px 0 0;" target="_blank" href="https://github.com/xiaoli123/forwordpanel/wiki">git地址</a>
-        |
-        <a style="padding: 0 0 0 5px;" target="_blank" href="https://t.me/xiandanzz">tg交流群</a> </span>
+      <span class="footer-span"><a style="padding: 0 5px 0 0;" target="_blank" href="https://github.com/xiaoli123/forwordpanel/wiki">面板Git</a>
+        | <i class="el-icon-s-promotion"/>
+        <a style="padding: 0 0 0 5px;" target="_blank" href="https://t.me/xiandanzz">面板TG交流群</a> </span>
       </div>
     </div>
   </div>
@@ -107,9 +107,10 @@ export default {
   }
   .main-footer {
     display: block;
-    height: 20px;
+    height: 30px;
     position: relative;
     overflow: hidden;
+    padding: 5px;
     background-color: #fff;
     box-shadow: 0 1px 4px rgba(7, 41, 17, 0.31);
     text-align: center;

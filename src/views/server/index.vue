@@ -1,29 +1,29 @@
 <template>
   <div class="app-container">
     <div class="searchBody">
-      <el-button type="success" size="mini"  icon="el-icon-plus" @click="showAddDialog" >添加服务器</el-button>
-    <el-button  type="success" size="mini"  icon="el-icon-refresh" @click="refreshServerList" >刷新</el-button>
+      <el-button type="primary" size="mini"  icon="el-icon-plus" @click="showAddDialog" >添加服务器</el-button>
+    <el-button  type="primary" size="mini"  icon="el-icon-refresh" @click="refreshServerList" >刷新</el-button>
     </div>
     <div class="item-container" id="itemBox">
       <div class="item-box" v-for="(item,index) in tableData" :key="index">
         <div class="server-status">
           <span :class="computeClass(item.state)" v-if="item.state === status.state" v-for="(status,index) in stateList" :key="item+index">
+            <i v-show="item.state === 2" class="el-icon-warning"/>
+            <i v-show="item.state === 1" class="el-icon-question"/>
+            <i v-show="item.state === 3" class="el-icon-success"/>
               {{status.stateName}}
           </span>
         </div>
-        <div class="box-col"><label>服务器名称</label>{{item.serverName}}</div>
-        <div class="box-col"><label>服务器地址</label>{{item.host}}</div>
-        <div class="box-col"><label>SSH端口</label>{{item.port}} <el-button type="text" size="mini" class="port-manage" @click="showPortListDialog(item)">端口维护</el-button></div>
-        <div class="box-col"><label>用户名</label>{{item.username}}</div>
-        <div class="box-col"><label>流量倍率</label>{{item.flowRate || 1}}</div>
-        <div class="box-col"><label>峰值速率</label>{{item.bandwidth}}</div>
-        <div class="box-col"><label>更新时间</label>{{item.updateTime || item.createTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</div>
+        <div class="box-col" style="font-size: 18px; font-weight: bold">{{item.serverName}}</div>
+        <div class="box-col"><label>服务器地址:</label>{{item.host}}</div>
+        <div class="box-col"><label>SSH端口:</label>{{item.port}} </div>
+        <div class="box-col"><label>用户名:</label>{{item.username}}</div>
+        <div class="box-col"><label>检测时间:</label>{{item.updateTime || item.createTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</div>
         <div class="box-trl">
-          <el-button  size="mini" @click="showEditDialog(item)" title="编辑">编辑</el-button>
-          <el-button  size="mini" @click="test(item)" title="test">检测</el-button>
-          <el-button type="success" v-if="item.disabled" disabled size="mini" @click="enable(item)" title="上架">上架</el-button>
-          <el-button type="danger" v-else size="mini" disabled @click="disable(item)" title="下架">下架</el-button>
-          <el-button type="danger" size="mini" @click="deleteData(item)" title="删除">删除</el-button>
+          <el-button type="text" icon="el-icon-edit" size="mini" @click="showEditDialog(item)" title="编辑">编辑</el-button>
+          <el-button type="text" size="mini" icon="el-icon-circle-plus" @click="showPortListDialog(item)">端口维护</el-button>
+<!--          <el-button type="text" icon="el-icon-refresh-left" size="mini" @click="test(item)" title="test">检测</el-button>-->
+          <el-button type="text" icon="el-icon-delete" size="mini" @click="deleteData(item)" title="删除">删除</el-button>
         </div>
       </div>
     </div>
@@ -62,10 +62,9 @@
         <div class="block">
           <xd-pager
             background
-            v-if="portDataTotal/portSearchForm.pageSize > 1"
             @size-change="handlePortSizeChange"
             @current-change="handlePortCurrentChange"
-            :page-sizes="[10, 20, 50]"
+            :page-sizes="[8, 16, 32]"
             :page-size="portSearchForm.pageSize"
             :current-page="portSearchForm.pageNum"
             layout="total, sizes, prev, pager, next, jumper"
@@ -171,11 +170,11 @@ export default {
       dataTotal: null,
       portDataTotal: null,
       searchForm: {
-        pageSize: 10,
+        pageSize: 8,
         pageNum: 1
       },
       portSearchForm: {
-        pageSize: 10,
+        pageSize: 8,
         pageNum: 1,
         serverId: null
       },
@@ -207,7 +206,7 @@ export default {
       stateList: [
         {
           'state': 1,
-          'stateName': '初始化中'
+          'stateName': '检测中'
         },
         {
           'state': 2,
@@ -416,12 +415,18 @@ export default {
   padding-top: 20px;
 }
 .state-normal {
+  font-size: 12px;
+  font-weight: bold;
 }
 .state-fail {
   color: #F56C6C;
+  font-size: 12px;
+  font-weight: bold;
 }
 .state-online {
   color: #67C23A;
+  font-size: 12px;
+  font-weight: bold;
 }
 .item-box {
   position: relative;
@@ -442,6 +447,9 @@ export default {
     padding: 0 5px;
     float: right;
     font-size: 12px;
+  }
+  .el-button--text{
+    color: #909399;
   }
 }
 </style>

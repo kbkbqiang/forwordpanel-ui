@@ -1,15 +1,19 @@
 <template>
   <section>
     <div v-if="isMobile" class="footer-page" :class="{fixed: fixed}">
-      <el-button type="success" :disabled="currentPage <= 1" @click="pre()">上一页</el-button>
-      <el-button type="success" @click="backTop()">返回首页</el-button>
-      <el-button type="success" :disabled="currentPage >= Math.ceil(total / pageSize)" @click="next()">下一页</el-button>
+      <el-button  size="mini" :disabled="currentPage <= 1" @click="pre()">上一页</el-button>
+      <el-button  size="mini" @click="backTop()">返回首页</el-button>
+      <el-button  size="mini" :disabled="currentPage >= Math.ceil(total / pageSize)" @click="next()">下一页</el-button>
     </div>
     <el-pagination
       v-else
       background
       :attr="$attrs"
       v-on="$listeners"
+      :total="total"
+      :page-size="pageSize"
+      :current-page="currentPage"
+      :page-sizes="sizes"
       class="footer-pc-page"
       layout="total, sizes, prev, pager, next, jumper"
       >
@@ -37,6 +41,11 @@ export default {
     pageSize: {
       type: Number,
       default () { return 10 }
+    },
+    pageSizes: {
+      type: Array,
+      required: true,
+      default () { return [10, 20, 50] }
     },
     fatherId: {
       type: String,
