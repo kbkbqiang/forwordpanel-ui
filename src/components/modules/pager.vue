@@ -13,7 +13,8 @@
       :total="total"
       :page-size="pageSize"
       :current-page="currentPage"
-      :page-sizes="sizes"
+      :page-sizes="[8, 16, 32]"
+      hide-on-single-page="false"
       class="footer-pc-page"
       layout="total, sizes, prev, pager, next, jumper"
       >
@@ -44,8 +45,7 @@ export default {
     },
     pageSizes: {
       type: Array,
-      required: true,
-      default () { return [10, 20, 50] }
+      default () { return [8, 16, 32] }
     },
     fatherId: {
       type: String,

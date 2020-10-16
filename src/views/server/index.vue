@@ -65,6 +65,7 @@
             @size-change="handlePortSizeChange"
             @current-change="handlePortCurrentChange"
             :page-sizes="[8, 16, 32]"
+            :hide-on-single-page="false"
             :page-size="portSearchForm.pageSize"
             :current-page="portSearchForm.pageNum"
             layout="total, sizes, prev, pager, next, jumper"
@@ -416,17 +417,17 @@ export default {
 }
 .state-normal {
   font-size: 12px;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 .state-fail {
   color: #F56C6C;
   font-size: 12px;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 .state-online {
   color: #67C23A;
   font-size: 12px;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 .item-box {
   position: relative;
