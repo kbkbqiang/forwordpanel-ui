@@ -13,14 +13,14 @@
         </div>
         <div class="box-col"><label>服务器名称</label>{{item.serverName}}</div>
         <div class="box-col"><label>服务器地址</label>{{item.host}}</div>
-        <div class="box-col"><label>SSH端口</label>{{item.port}} <el-button type="success" size="mini" class="port-manage" @click="showPortListDialog(item)">中转端口管理</el-button></div>
+        <div class="box-col"><label>SSH端口</label>{{item.port}} <el-button type="text" size="mini" class="port-manage" @click="showPortListDialog(item)">端口维护</el-button></div>
         <div class="box-col"><label>用户名</label>{{item.username}}</div>
         <div class="box-col"><label>流量倍率</label>{{item.flowRate || 1}}</div>
         <div class="box-col"><label>峰值速率</label>{{item.bandwidth}}</div>
         <div class="box-col"><label>更新时间</label>{{item.updateTime || item.createTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}')}}</div>
         <div class="box-trl">
-          <el-button type="primary" size="mini" @click="showEditDialog(item)" title="编辑">编辑</el-button>
-          <el-button type="success" size="mini" @click="test(item)" title="test">检测</el-button>
+          <el-button  size="mini" @click="showEditDialog(item)" title="编辑">编辑</el-button>
+          <el-button  size="mini" @click="test(item)" title="test">检测</el-button>
           <el-button type="success" v-if="item.disabled" disabled size="mini" @click="enable(item)" title="上架">上架</el-button>
           <el-button type="danger" v-else size="mini" disabled @click="disable(item)" title="下架">下架</el-button>
           <el-button type="danger" size="mini" @click="deleteData(item)" title="删除">删除</el-button>
@@ -425,9 +425,10 @@ export default {
 }
 .item-box {
   position: relative;
+  font-size: 14px;
   .server-status{
     position: absolute;
-    right: 10px;
+    right: 15px;
     top: 5px;
     &.online{
       color: greenyellow;
