@@ -42,10 +42,14 @@
           <span>{{ scope.row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" width='160'>
+      <el-table-column label="操作" fixed="right" width='100'>
         <template slot-scope="scope">
+          <el-row style="margin: 5px;">
           <el-button type="primary" size="mini" @click="showEditDialog(scope.row)" title="编辑">编辑</el-button>
+          </el-row>
+          <el-row style="margin: 5px;">
           <el-button type="danger" size="mini" @click="deleteData(scope.row)" title="删除">删除</el-button>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
@@ -66,7 +70,7 @@
       :with-header="false"
       :visible.sync="portListDialog"
       direction="rtl"
-      size="60%">
+      size="80%">
       <div class="drawer-body">
         <el-button size="mini" type="success" icon="el-icon-plus" @click="showAddPortDialog" >添加端口</el-button>
         <el-button size="mini"   @click="refreshPortList" >刷新</el-button>
@@ -84,10 +88,14 @@
               <span>{{ scope.row.updateTime | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" width='250'>
+          <el-table-column label="操作" fixed="right" >
             <template slot-scope="scope">
+              <el-row style="margin: 5px;">
               <el-button type="primary" size="mini" @click="showEditPortDialog(scope.row)" title="编辑">编辑</el-button>
+              </el-row>
+              <el-row style="margin: 5px;">
               <el-button type="danger" size="mini" @click="deletePort(scope.row)" title="删除">删除</el-button>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -135,7 +143,7 @@
       </div>
     </el-dialog>
     <el-dialog title="添加端口" :visible.sync="addPortDialog" width="30%">
-      <el-form :model="addPortForm" :rules="addPortFormRules" ref="addPortForm" label-width="120px" size="small">
+      <el-form :model="addPortForm" :rules="addPortFormRules" ref="addPortForm" label-width="100px" size="small">
         <el-form-item
           label="本地端口"
           prop="localPort"

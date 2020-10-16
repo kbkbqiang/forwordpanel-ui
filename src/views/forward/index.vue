@@ -39,8 +39,8 @@
       </el-table-column>
       <el-table-column label="操作" fixed="right">
         <template slot-scope="scope">
-          <el-button  v-if="scope.row.disabled"  type="success" size="mini"  @click="showStartDialog(scope.row)" title="启用中转">启动中转</el-button>
-          <el-button  v-if="!scope.row.disabled" :loading="!scope.row.btnLoading?false:true" type="danger" size="mini"  @click="stopForward(scope.row)" title="停止中转">停止中转</el-button>
+          <el-button  v-if="scope.row.disabled"  type="success" size="mini"  @click="showStartDialog(scope.row)" title="启用">启动</el-button>
+          <el-button  v-if="!scope.row.disabled" :loading="!scope.row.btnLoading?false:true" type="danger" size="mini"  @click="stopForward(scope.row)" title="停止中转">停止</el-button>
         </template>
       </el-table-column>
     </el-table>

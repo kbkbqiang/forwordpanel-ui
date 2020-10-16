@@ -5,11 +5,11 @@
         <el-form-item>
           <el-form :inline="true" :model="searchForm" class="demo-form-inline" @submit.native.prevent>
             <el-form-item>
-              <el-button type="success"    @click="showAddDialog" >开通账号</el-button>
-              <el-button type="primary"    @click="showAssignDialog()" >端口分配</el-button>
-              <el-button type="primary"    @click="resetFLow()" >重置流量</el-button>
-              <el-button v-if="!selectedRow||selectedRow.disabled" type="success"   @click="handleEnableUser()" title="启用">启用</el-button>
-              <el-button v-if="selectedRow&&!selectedRow.disabled" type="danger"   @click="handleDisableUser()" title="停止">禁用</el-button>
+              <el-button type="success" size="mini"   @click="showAddDialog" >开通账号</el-button>
+              <el-button type="primary"  size="mini"  @click="showAssignDialog()" >端口分配</el-button>
+              <el-button type="primary"  size="mini"  @click="resetFLow()" >重置流量</el-button>
+              <el-button v-if="!selectedRow||selectedRow.disabled" size="mini" type="success"   @click="handleEnableUser()" title="启用">启用</el-button>
+              <el-button v-if="selectedRow&&!selectedRow.disabled" size="mini" type="danger"   @click="handleDisableUser()" title="停止">禁用</el-button>
             </el-form-item>
           </el-form>
         </el-form-item>
@@ -53,10 +53,14 @@
           {{ scope.row.disabled===false?'启用':'禁用' }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right">
+      <el-table-column label="操作" width="100" fixed="right">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="showEditDialog(scope.row)" title="编辑">编辑</el-button>
+          <el-row style="margin: 5px;">
+            <el-button type="primary" size="mini" @click="showEditDialog(scope.row)" title="编辑">编辑</el-button>
+          </el-row>
+          <el-row style="margin: 5px;">
           <el-button type="danger" size="mini" @click="deleteData(scope.row)" title="删除">删除</el-button>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
@@ -73,8 +77,8 @@
       </el-pagination>
     </div>
     <el-dialog title="开通账号" :visible.sync="addDialog" width="30%">
-      <el-form :model="addForm" :rules="addFormRules" ref="addForm" label-width="130px" size="small">
-        <el-form-item   label="用户类型" prop="userType">
+      <el-form :model="addForm" :rules="addFormRules" ref="addForm"  size="small">
+        <el-form-item    prop="userType">
           <el-select size="mini" style="width: 100%"  v-model="addForm.userType"  >
             <el-option
               v-for="(item,index) in userTypeList"
@@ -83,13 +87,13 @@
               :value="item.value"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="用户名" prop="username">
-          <el-input size="mini"  v-model="addForm.username" ></el-input>
+        <el-form-item prop="username">
+          <el-input size="mini" placeholder="用户名"  v-model="addForm.username" ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input size="mini"  v-model="addForm.password" ></el-input>
+        <el-form-item  prop="password">
+          <el-input size="mini" placeholder="密码"  v-model="addForm.password" ></el-input>
         </el-form-item>
-        <el-form-item label="到期时间" prop="expireTime">
+        <el-form-item  prop="expireTime">
           <el-date-picker
             style="width: 100%"
             size="mini"
@@ -99,11 +103,11 @@
             align="right">
           </el-date-picker>
           </el-form-item>
-        <el-form-item label="手机号" prop="userPhone">
-          <el-input size="mini"  v-model="addForm.userPhone" ></el-input>
+        <el-form-item  prop="userPhone">
+          <el-input size="mini" placeholder="手机号" v-model="addForm.userPhone" ></el-input>
         </el-form-item>
-        <el-form-item label="TG" prop="telegram">
-          <el-input size="mini"  v-model="addForm.telegram" ></el-input>
+        <el-form-item  prop="telegram">
+          <el-input size="mini" placeholder="TG"  v-model="addForm.telegram" ></el-input>
         </el-form-item>
         <el-form-item
           prop="dataLimit"
@@ -112,21 +116,7 @@
             { type: 'number', message: '必须为数字值'}
           ]"
         >
-          <template slot="label">
-                    <span style="position:relative">
-                        <span>
-                          流量限制(GB)
-                          <el-tooltip class="item" effect="dark" placement="top">
-                          <div slot="content">
-                            <p>设置为0或负数,不限制流量</p>
-                          </div>
-                          <i class="el-icon-question table-msg"/>
-                          </el-tooltip>
-                        </span>
-
-                    </span>
-          </template>
-          <el-input size="mini"  v-model.number="addForm.dataLimit" ></el-input>
+          <el-input size="mini" placeholder="流量限制(GB),0或负数不限制"  v-model.number="addForm.dataLimit" ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -139,7 +129,7 @@
       :with-header="false"
       :visible.sync="assignDialog"
       direction="rtl"
-      size="60%">
+      size="80%">
       <div class="drawer-body">
         <el-button size="mini" type="success" icon="el-icon-plus" @click="showFreePortDialog" >分配端口</el-button>
         <el-table :data="assignData">
@@ -152,9 +142,15 @@
           </el-table-column>
           <el-table-column label="操作" fixed="right">
             <template slot-scope="scope">
+              <el-row style="margin: 5px;">
               <el-button type="danger" size="mini" @click="deleteUserPort(scope.row)"  title="删除">删除</el-button>
-              <el-button v-if="scope.row.disabled" type="success" size="mini"  @click="enablePort(scope.row)" title="启用中转">启用</el-button>
-              <el-button v-if="!scope.row.disabled" type="danger" size="mini"  @click="disablePort(scope.row)" title="停止中转">禁用</el-button>
+              </el-row>
+              <el-row style="margin: 5px;">
+                <el-button v-if="scope.row.disabled" type="success" size="mini"  @click="enablePort(scope.row)" title="启用中转">启用</el-button>
+              </el-row>
+              <el-row style="margin: 5px;">
+                <el-button v-if="!scope.row.disabled" type="danger" size="mini"  @click="disablePort(scope.row)" title="停止中转">禁用</el-button>
+              </el-row>
             </template>
           </el-table-column>
         </el-table>
@@ -177,7 +173,7 @@
       :with-header="false"
       :visible.sync="freePortDialog"
       direction="rtl"
-      size="50%">
+      size="70%">
 
       <div class="drawer-body">
         <el-form :model="portSelectForm"  >
@@ -254,7 +250,7 @@ export default {
         expireTime: null,
         dataUsage: null,
         userType: 1,
-        dataLimit: 0
+        dataLimit: null
       },
       addFormRules: {
         host: [{ required: true, trigger: 'blur', message: '必需项' }],
